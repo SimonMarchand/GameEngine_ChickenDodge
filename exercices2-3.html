@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Exercices #2 et #3</title>
+</head>
+<body>
+<h1 id="exercices-2-et-3">Exercices #2 et #3</h1>
+<h2 id="notes-pour-la-remise">Notes pour la remise</h2>
+<p>Ces exercices sont dûs pour le <strong>mercredi 17 octobre 2018</strong>.</p>
+<p>La remise électronique se fait via la plateforme Moodle.</p>
+<p>N&#39;oubliez pas d&#39;inscrire le nom de vos coéquipiers!</p>
+<h2 id="exercice-2">Exercice #2</h2>
+<p>À l’aide du projet <em>ChickenDodge</em>, implémenter un mécanisme de <em>batching</em> pour les <em>sprites</em>.</p>
+<p>À l’aide du champ en haut du canevas de jeu, vous constaterez qu’il y a un appel de rendu (<em>draw call</em>) pour chaque <em>sprite</em>. Puisqu’elles partagent des caractéristiques communes, il devrait être possible de réduire de façon importante le nombre d’appels.</p>
+<p>La stratégie recommandée consiste à déplacer la création, la mise à jour et l’appel de rendu de la méthode <code>display</code> du composant <code>SpriteComponent</code> vers la méthode <code>display</code> du composant <code>LayerComponent</code>.</p>
+<h2 id="exercice-3">Exercice #3</h2>
+<p>À l’aide du projet <em>ChickenDodge</em>, implémenter un effet visuel avec un <em>fragment shader</em>.</p>
+<p>Le code de la caméra permet d&#39;utiliser le rendu en mémoire. On peut ainsi supporter des effets spéciaux en plein écran à l’aide de <em>shaders</em>. Un composant appliquant une déformation de l’écran a ainsi été créé, afin d’être activé lorsque le joueur est touché par un poulet. Le résultat désiré est visible ici: (<a href="https://youtu.be/tauWfnZkD-c">https://youtu.be/tauWfnZkD-c</a>).</p>
+<p>Votre rôle est d’implémenter le <em>fragment shader</em> situé dans le fichier <code>client/shaders/deformation.frag</code> afin de pouvoir reproduire un effet semblable. Les différentes textures et paramètres sont configurés correctement dans le composant <code>DeformationCompositorComponent</code>, afin de mettre les variables uniformes à jour dans le shader.</p>
+<p>L’algorithme suggéré est le suivant:</p>
+<ul>
+<li>Calculer l’intensité de la déformation à appliquer selon le temps, par la recherche d’une valeur dans la texture <code>uIntensity</code>, aux coordonnées <code>(uTime, 0.5)</code>. Mettre cette intensité à l’échelle <code>uScale</code>.</li>
+<li>Chercher un vecteur de déformation dans la texture <code>uDeformation</code>, aux coordonnées <code>vTextureCoord</code> décalé d’une valeur tirée de <code>uTime</code> (par exemple, le sinus de <code>uTime</code>). Moduler ce vecteur de déformation par l’intensité précédente.</li>
+<li>Chercher la couleur finale dans <code>uSampler</code> aux coordonnées <code>vTextureCoord</code>, décalées du vecteur de déformation.</li>
+</ul>
+<h2 id="notes">Notes</h2>
+<ul>
+<li><a href="https://nodejs.org/en/">Node.js</a> est essentiel pour installer les dépendances du projet. Lorsqu&#39;installé, exécuter la commande <code>npm install</code> depuis le dossier où est situé le fichier <code>package.json</code> pour installer les dépendances nécessaires.</li>
+<li>Les exercices #2 et #3 sont indépendants, mais réalisés à partir du même projet. Une seule remise conjointe est par contre nécessaire.</li>
+<li>Le langage utilisé est <a href="https://www.typescriptlang.org/">TypeScript</a>, qui est un dialecte de JavaScript ajoutant le concept de &quot;types&quot; au langage afin de limiter les erreurs. Ce langage doit être compilé afin d&#39;être utilisable.</li>
+<li>La documentation des fichiers est extraite dans les répertoires <em>docs</em> , et est extraite avec l’outil <a href="https://jashkenas.github.io/docco/">docco</a>.</li>
+<li>Aucun effort d’optimisation n’a été fait, dans le but de demeurer simple.</li>
+<li>Pour des raisons de sécurité, plusieurs navigateurs vont refuser de charger des fichiers de façon asynchrone lorsque le protocole de fichiers locaux est utilisé (adresses de type <code>file://</code>). Pour pallier à ça, il peut être plus simple d&#39;installer un serveur Web (voir dernière section).</li>
+<li>Utilisez la console JavaScript de votre navigateur  (<a href="https://developer.mozilla.org/fr/docs/Outils/Console_Web">Firefox</a>, <a href="https://developers.google.com/web/tools/chrome-devtools/debug/console/console-ui">Chrome</a>, <a href="https://developer.apple.com/safari/tools/">Safari</a>, <a href="https://msdn.microsoft.com/en-us/library/dn255006%28v=vs.85%29.aspx">IE</a>) et les méthodes de l’objet <a href="https://developer.mozilla.org/fr/docs/Web/API/Console">console</a> pour débogger votre code!</li>
+<li>Je suggère d&#39;utiliser l&#39;environnement de développement <a href="https://code.visualstudio.com/">Visual Studio Code</a>, en suivant <a href="https://code.visualstudio.com/docs/languages/typescript">la procédure d&#39;installation de TypeScript</a>.</li>
+<li>Il y a présentement <a href="https://github.com/Microsoft/vscode/issues/32400">un bug sous Windows</a> avec la génération du projet si l&#39;arborescence comprend des espaces, des traits d&#39;union ou autres caractères semblables. La génération peut néanmoins être exécutée en utilisant les tâches préfixée de &quot;WIN+Espaces&quot;.</li>
+</ul>
+<h2 id="installation-d-un-serveur-web-simple">Installation d&#39;un serveur Web simple</h2>
+<p>Afin d&#39;éviter les problèmes liés aux requêtes inter-origines lors de l&#39;utilisation du protocole <code>file://</code>, il peut être pratique d&#39;installer un serveur Web.</p>
+<p>Je vous suggère d&#39;installer <a href="https://nodejs.org/en/">Node.js</a>, en version courante. Ce logiciel est de toute façon
+nécessaire à la configuration du travail.</p>
+<p>Lorsqu&#39;installé, depuis l&#39;invite de commande du système d&#39;exploitation, installer le serveur <a href="https://github.com/indexzero/http-server">http-server</a> via la commande:</p>
+<pre><code>npm install -g http-server
+</code></pre><p>Vous devrez probablement exécuter la commande avec des droits d&#39;administrateur afin que l&#39;installation fonctionne correctement.</p>
+<p>Finalement, depuis le dossier de projet, vous pourrez exécuter le serveur, en spécifiant le port d&#39;écoute:</p>
+<pre><code>http-server -c-1 -p 8080
+</code></pre><p>Dans cet exemple, on spécifie le port d&#39;écoute <em>8080</em> (les fichiers seront donc disponibles via l&#39;URL <a href="http://localhost:8080/">http://localhost:8080/</a>), et l&#39;option <em>-c-1</em> indique de ne pas conserver les fichiers en cache, ce qui est utile pour le développement.</p>
+
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>Chicken Dodge</title>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.5/require.js"></script>
+  <script src="https://cdn.rawgit.com/evanw/node-source-map-support/v0.5.0/browser-source-map-support.js"></script>
+  <script>
+    require.config({
+      paths: {
+        'gl-matrix': 'https://cdnjs.cloudflare.com/ajax/libs/gl-matrix/2.4.0/gl-matrix'
+      }
+    });
+    require(['browser-source-map-support'], (sourceMapSupport) => {
+      sourceMapSupport.install();
+    });
+  </script>
+  <script src="dist/merged.js"></script>
+  <style type="text/css">
+    canvas {
+      border: 1px solid black;
+    }
+  </style>
+</head>
+
+<body>
+  <p>
+    <button onclick="requestFullScreen();">Plein écran</button>
+  </p>
+  <div>Appels de rendu:
+    <span id="drawCalls"></span>
+  </div>
+  <div id="playarea">
+    <canvas id="canvas" width="768" height="576"></canvas>
+  </div>
+
+  <script>
+    let requestFullScreen;
+
+    require(["chickendodge", "graphicsAPI"], (game, GraphicsAPI) => {
+      requestFullScreen = GraphicsAPI.requestFullScreen;
+      game.init();
+    });
+  </script>
+
+</body>
+
+</html>
