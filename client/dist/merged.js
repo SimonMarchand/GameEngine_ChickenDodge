@@ -1380,7 +1380,7 @@ define("components/layerComponent", ["require", "exports", "components/component
         constructor() {
             super(...arguments);
             this.vertex = new Float32Array();
-            this.indices = new Uint32Array();
+            this.indices = new Uint16Array();
         }
         // ## Méthode *display*
         // La méthode *display* est appelée une fois par itération
@@ -1398,7 +1398,7 @@ define("components/layerComponent", ["require", "exports", "components/component
             this.vertex = new Float32Array(this.verticesArray);
             GL.bindBuffer(GL.ARRAY_BUFFER, this.vertexBuffer);
             GL.bufferData(GL.ARRAY_BUFFER, this.vertex, GL.DYNAMIC_DRAW);
-            this.indices = new Uint32Array(this.indicesArray);
+            this.indices = new Uint16Array(this.indicesArray);
             GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, this.indexBuffer);
             GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, this.indices, GL.DYNAMIC_DRAW);
             spriteSheet.bind();

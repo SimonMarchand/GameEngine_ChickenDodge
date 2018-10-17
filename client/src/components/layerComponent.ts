@@ -19,7 +19,7 @@ export class LayerComponent extends Component<Object> implements IDisplayCompone
   private vertexBuffer!: WebGLBuffer;
   private indexBuffer!: WebGLBuffer;
   private vertex : Float32Array = new Float32Array();
-  private indices : Uint32Array = new Uint32Array();
+  private indices : Uint16Array = new Uint16Array();
 
   // ## Méthode *display*
   // La méthode *display* est appelée une fois par itération
@@ -41,7 +41,7 @@ export class LayerComponent extends Component<Object> implements IDisplayCompone
     GL.bindBuffer(GL.ARRAY_BUFFER, this.vertexBuffer);
     GL.bufferData(GL.ARRAY_BUFFER,  this.vertex, GL.DYNAMIC_DRAW);
 
-    this.indices = new Uint32Array(this.indicesArray);
+    this.indices = new Uint16Array(this.indicesArray);
     GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, this.indexBuffer);
     GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, this.indices, GL.DYNAMIC_DRAW);
 
